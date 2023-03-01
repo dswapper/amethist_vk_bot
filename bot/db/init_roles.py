@@ -27,7 +27,6 @@ async def init():
     admins_ids = await init_admins_ids()
     artists_ids = await init_artists_ids()
 
-
 loop = asyncio.get_event_loop()
 init_task = loop.create_task(init())
 loop.run_until_complete(asyncio.wait([init_task]))

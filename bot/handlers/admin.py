@@ -3,8 +3,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.exc import IntegrityError
 from typing import Tuple
 
-from bot.db.models import Admins
-from bot.db.init_roles import admins_ids
+from bot.db.models import Admins, Artists
+from bot.db.init_roles import admins_ids, artists_ids
 
 
 admin_labeler = BotLabeler()
@@ -29,7 +29,29 @@ async def add_admin_handler(message: Message, args: Tuple[str], session: AsyncSe
         except IntegrityError:
             await message.answer(f'Пользователь уже имеет роль Администратор')
         else:
-            await message.answer(f'Пользователь {peer_id} успешно добавлен!')
+            admins_ids.append(peer_id)
+            await message.answer(f'Пользователь {peer_id} успешно получил роль Администратор!')
+
+
+@admin_labeler.message(command = ('addartist', 1))
+async def add_artist_handler(message: Message, args: Tuple[str], session: AsyncSession):
+    peer_id = args[0].split('|')[0].replace('[id', '')
+    try:
+        peer_id = int(peer_id)
+    except:
+        await message.answer('Неправильный аргумент, нужно прислать id в формате @nick или цифрами')
+    else:
+        new_artist = Artists()
+        new_artist.peer_id = peer_id
+        new_artist.is_artist = True
+        try:
+            session.add(new_artist)
+            await session.commit()
+        except IntegrityError:
+            await message.answer(f'Пользователь уже имеет роль Художник')
+        else:
+            artists_ids.append(peer_id)
+            await message.answer(f'Пользователь {peer_id} успешно получил роль Художник!')
 
 
 
