@@ -3,7 +3,7 @@ from sqlalchemy import ForeignKey
 from sqlalchemy import func
 
 from bot.db.base import Base
-from bot.enums.order_type import OrderType
+from bot.enums import *
 
 
 class BaseModel(Base):
@@ -12,25 +12,12 @@ class BaseModel(Base):
     id = Column(Integer, primary_key=True, index=True)
 
 
-class Artists(BaseModel):
-    __tablename__ = "artists"
-
-    peer_id = Column(Integer(), unique=True, nullable=False)
-    is_artist = Column(Boolean())
-    balance = Column(Float(), default=0)
-
-
-class Admins(BaseModel):
-    __tablename__ = "admins"
-
-    peer_id = Column(Integer(), unique=True, nullable=False)
-    is_admin = Column(Boolean())
-
-
 class Users(BaseModel):
     __tablename__ = "users"
 
+    peer_id = Column(Integer(), unique=True, nullable=False)
     balance = Column(Float(), default=0)
+    role = Column(Enum(Roles))
 
 
 class Orders(BaseModel):
