@@ -3,7 +3,7 @@ from datetime import datetime
 
 from loguru import logger
 
-from bot.main import bot_
+from bot import bot_
 
 logger.remove()
 logger.add(sys.stderr, level="INFO")

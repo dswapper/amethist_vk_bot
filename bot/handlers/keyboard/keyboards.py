@@ -13,10 +13,12 @@ kb_start_menu.add(Text(cancel_text), KeyboardButtonColor.SECONDARY)
 kb_start_menu = kb_start_menu.get_json()
 
 
+# Ordering keyboard
 kb_choosing_order_type = Keyboard(inline=True)
 
-kb_choosing_order_type.add(Text(product_skin_text), KeyboardButtonColor.PRIMARY)
-kb_choosing_order_type.add(Text(product_totem_text), KeyboardButtonColor.PRIMARY)
+kb_choosing_order_type.add(Text(product_skin_text), KeyboardButtonColor.SECONDARY)
+kb_choosing_order_type.add(Text(product_totem_text), KeyboardButtonColor.SECONDARY)
+kb_choosing_order_type.add(Text(cancel_text), KeyboardButtonColor.NEGATIVE)
 kb_choosing_order_type = kb_choosing_order_type.get_json()
 
 
