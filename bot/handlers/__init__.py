@@ -1,5 +1,7 @@
-from . import echo, order, admin, artist
+from . import echo, order, admin_panel, artist_cmds
 
-labelers = [echo.labeler, order.labeler, admin.admin_labeler, artist.artist_labeler, admin.user_labeler]
+labelers = [echo.labeler, order.labeler,
+            admin_panel.admin_labeler,
+            artist_cmds.artist_labeler]
 
 __all__ = ('labelers')

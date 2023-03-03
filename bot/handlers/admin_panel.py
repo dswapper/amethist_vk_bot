@@ -8,7 +8,6 @@ from bot.db.init_roles import admins_ids, artists_ids
 
 
 admin_labeler = BotLabeler()
-user_labeler = BotLabeler()
 admin_labeler.auto_rules = [rules.FromPeerRule(admins_ids)]
 
 
@@ -17,7 +16,7 @@ async def add_admin_handler(message: Message, args: Tuple[str], session: AsyncSe
     peer_id = args[0].split('|')[0].replace('[id', '')
     try:
         peer_id = int(peer_id)
-    except:
+    except KeyError:
         await message.answer('Неправильный аргумент, нужно прислать id в формате @nick или цифрами')
     else:
         new_admin = Admins()
@@ -52,14 +51,3 @@ async def add_artist_handler(message: Message, args: Tuple[str], session: AsyncS
         else:
             artists_ids.append(peer_id)
             await message.answer(f'Пользователь {peer_id} успешно получил роль Художник!')
-
-
-
-@admin_labeler.message(command='check')
-async def check_handler(message: Message):
-    await message.answer('Вы админ!')
-
-
-@user_labeler.message(command='check')
-async def check_handler_user(message: Message):
-    await message.answer('Вы не админ и не художник!')

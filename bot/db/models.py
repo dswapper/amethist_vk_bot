@@ -1,18 +1,9 @@
-import enum
-
 from sqlalchemy import Column, Integer, Float, VARCHAR, Boolean, DateTime, Enum
 from sqlalchemy import ForeignKey
 from sqlalchemy import func
 
 from bot.db.base import Base
-
-
-class OrderType(enum.Enum):
-    skin_air = 'air'
-    skin_shady = 'shady'
-    skin_century = 'century'
-    totem_3d = 'totem3d'
-    totem_2d = 'totem2d'
+from bot.enums.order_type import OrderType
 
 
 class BaseModel(Base):
