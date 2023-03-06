@@ -8,8 +8,8 @@ from bot.enums.roles import Roles
 
 def get_roles():
     logger.info('Initialising roles')
-    artists_sql_query = select(Users.peer_id).where(Users.role == Roles.role_artist)
-    admins_sql_query = select(Users.peer_id).where(Users.role == Roles.role_admin)
+    artists_sql_query = select(Users.vk_id).where(Users.role == Roles.role_artist)
+    admins_sql_query = select(Users.vk_id).where(Users.role == Roles.role_admin)
 
     with db_sync_pool() as session:
         artists_list = [int(row[0]) for row in session.execute(artists_sql_query)]

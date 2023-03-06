@@ -28,17 +28,17 @@ async def set_role_handler(message: Message, args: Tuple[str], session: AsyncSes
     except ValueError:
         await message.answer('Неправильный аргумент, пришлите id или @nick пользователя и желаемую роль в формате admin user artist')
     else:
-        get_user_sql_query = select(Users).limit(1).where(Users.peer_id == peer_id)
+        get_user_sql_query = select(Users).limit(1).where(Users.vk_id == peer_id)
         async with session:
             result = [item for item in await session.execute(get_user_sql_query)]
             if len(result) != 0:
-                update_user_sql_query = update(Users).values(role=new_role).where(Users.peer_id == peer_id)
+                update_user_sql_query = update(Users).values(role=new_role).where(Users.vk_id == peer_id)
                 await session.execute(update_user_sql_query)
                 await session.commit()
                 await message.answer(f'Роль пользователя {peer_id} успешно обновлена!')
             else:
                 new_user = Users()
-                new_user.peer_id = peer_id
+                new_user.vk_id = peer_id
                 new_user.role = new_role
                 session.add(new_user)
                 await session.commit()

@@ -218,4 +218,7 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
+
+# Mine
 /logs/
+/bot/handlers/test_cmds.py
