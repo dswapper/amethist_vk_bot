@@ -1,4 +1,4 @@
-from vkbottle import Keyboard, Text, KeyboardButtonColor
+from vkbottle import Keyboard, Text, OpenLink, KeyboardButtonColor
 from bot.handlers.keyboard.texts import *
 from bot.enums.order_type import OrderType
 
@@ -42,6 +42,10 @@ kb_choosing_skin_style.add(Text(product_skin_air), KeyboardButtonColor.SECONDARY
 kb_choosing_skin_style.add(Text(product_skin_century), KeyboardButtonColor.SECONDARY)
 kb_choosing_skin_style.add(Text(product_skin_shady), KeyboardButtonColor.SECONDARY)
 kb_choosing_skin_style.add(Text(cancel_text), KeyboardButtonColor.NEGATIVE)
+
+# Paying
+kb_pay = Keyboard()
+kb_pay.add(OpenLink(link='https://vk.com/drswapper', label='Оплатить заказ'), KeyboardButtonColor.POSITIVE)
 
 
 
