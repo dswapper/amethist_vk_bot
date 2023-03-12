@@ -16,4 +16,7 @@ product_skin_air = 'Air'
 product_skin_century = 'Century'
 product_skin_shady = 'Shady'
 
+back_msg = "Назад"
+next_msg = "Выбрать этот вариант"
+
 

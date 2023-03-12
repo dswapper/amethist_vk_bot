@@ -6,7 +6,7 @@ from loguru import logger
 from bot import bot_
 
 logger.remove()
-logger.add(sys.stderr, level="INFO")
-logger.add(f'logs/log_{datetime.now().strftime("%H%M%S_%d%m%Y")}.txt', level="DEBUG")
+logger.add(sys.stderr, level="DEBUG")
+logger.add(f'logs/log_{datetime.now().strftime("%d%m%Y_%H%M%S")}.txt', level="DEBUG")
 
 bot_.run_forever()

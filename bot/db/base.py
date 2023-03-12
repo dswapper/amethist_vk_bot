@@ -11,7 +11,3 @@ Base = declarative_base()
 
 db_pool = sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)
 db_sync_pool = sessionmaker(engine_sync)
-
-
-
-
