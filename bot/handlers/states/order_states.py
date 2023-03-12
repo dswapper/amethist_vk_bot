@@ -8,5 +8,6 @@ class OrderStates(BaseStateGroup):
     choosing_skin_model = 'choosing_skin_model'
     choosing_skin_style = 'choosing_skin_style'
     choosing_totem_type = 'choosing_totem_type'
+    confirming_skin_style = 'confirming_skin_style'
     sending_references = 'sending_references'
     waiting_completion = 'waiting_completion'

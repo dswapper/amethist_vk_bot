@@ -1,7 +1,7 @@
-from . import echo, order, admin_panel, artist_cmds
-from .state_dispenser import state_dispenser
+from . import order, admin_panel, artist_cmds
+from bot.handlers.states.state_dispenser import state_dispenser
 
-labelers = [echo.labeler, order.order_labeler,
+labelers = [order.order_labeler,
             admin_panel.admin_labeler,
             artist_cmds.artist_labeler]
 

@@ -1,4 +1,4 @@
-from vkbottle import Bot, BuiltinStateDispenser
+from vkbottle import Bot, API
 from bot.config import Config
 from bot.handlers import labelers, state_dispenser
 from bot.middleware import middlewares
