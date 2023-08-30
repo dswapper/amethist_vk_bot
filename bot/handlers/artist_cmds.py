@@ -2,9 +2,11 @@ from vkbottle.bot import Message
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from random import randint
-from typing import Tuple
+from typing import Tuple, List
 
 from bot.utils.users import get_user_by_id
+from bot.db.models import ReferenceMessage
+from bot.utils.orders import get_reference_msgs_by_order_id
 from .labelers import artist_labeler
 
 
@@ -35,3 +37,12 @@ async def send_to_user_handler(message: Message, args: Tuple[str], session: Asyn
 
 
 # TODO: система очереди и выбора художника
+
+
+@artist_labeler.message(command=('getref', 1))
+async def get_references_by_order_id_handler(message: Message, args: Tuple[str], session: AsyncSession):
+    order_id = int(args[0])
+    ref_list: List[ReferenceMessage] = await get_reference_msgs_by_order_id(order_id, session)
+
+    for msg in ref_list:
+        await message.answer(message=msg.message_text, attachment=msg.message_attachments)

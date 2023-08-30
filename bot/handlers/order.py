@@ -96,7 +96,8 @@ async def choosing_skin_style(message: Message) -> None:
 @order_labeler.message(StateRule(OrderStates.confirming_skin_style))
 async def confirming_skin_style_handler(message: Message) -> None:
     if message.text == next_msg:
-        await state_dispenser.set(message.from_id, OrderStates.sending_references, skin_style=SkinStyle.shady,
+        await state_dispenser.set(message.from_id, OrderStates.sending_references,
+                                  skin_style=message.state_peer.payload['skin_style'],
                                   skin_model=message.state_peer.payload['skin_model'],
                                   msg=message.state_peer.payload['msg'])
         await message.answer('А теперь опиши то, как ты видишь свой будущий скин и желательно, '
@@ -105,7 +106,8 @@ async def confirming_skin_style_handler(message: Message) -> None:
     else:
         await message.answer('Отлично, посмотри в каких стилях мы рисуем и выбери понравившийся!',
                              keyboard=kb_choosing_skin_style)
-        await state_dispenser.set(message.from_id, OrderStates.choosing_skin_style, skin_style=SkinStyle.shady,
+        await state_dispenser.set(message.from_id, OrderStates.choosing_skin_style,
+                                  skin_style=message.state_peer.payload['skin_style'],
                                   skin_model=message.state_peer.payload['skin_model'],
                                   msg=message.state_peer.payload['msg'])
 
@@ -124,7 +126,6 @@ async def sending_references_done_handler(message: Message, session: AsyncSessio
                              'Просто нажми на кнопку под окном для сообщений и оплати свой заказ.', keyboard=kb_pay)
 
         async with session:
-            user = await get_user_by_vkid(message.from_id, session)
             new_order = Orders()
             new_order.order_status = OrderStatus.user_send_references
             new_order.order_type = OrderType.skin
@@ -150,8 +151,8 @@ async def sending_references_done_handler(message: Message, session: AsyncSessio
 
         for msg in msg_list:
             attachment = ','.join(msg.get_attachment_strings())
-            await message.ctx_api.messages.send(user_id=533880207, random_id=randint(0,20000000), message=msg.text,
-                                                attachment=attachment)
+        #     await message.ctx_api.messages.send(user_id=533880207, random_id=randint(0,20000000), message=msg.text,
+        #                                         attachment=attachment)
             async with session:
                 new_ref_msg = ReferenceMessage()
                 new_ref_msg.order_id = order_id
@@ -174,7 +175,9 @@ async def sending_references_handler(message: Message) -> None:
                               skin_style=message.state_peer.payload['skin_style'],
                               msg=msg)
 
+
 # TODO: с заказом приходит тип модельки + забивается в базу данных + выбор художника + чек оплаты + пользователь в БД
 # TODO: перед выбором стиля показывать картиночку
 # TODO: тесты
 # TODO: все тексты в отдельный файл для удобного редактирования (через .format)
+# TODO: сообщения художнику refactor
